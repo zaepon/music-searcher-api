@@ -25,6 +25,8 @@ yarn
 
 
 # Project Structure
+```
+
 |-- .
     |-- .gitignore
     |-- README.md
@@ -53,6 +55,7 @@ yarn
             |-- test.ts
             |-- types
                 |-- .gitkeep
+  ```
 
 
 
