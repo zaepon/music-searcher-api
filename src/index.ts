@@ -2,8 +2,10 @@ import "reflect-metadata";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { TestResolver } from "./resolvers";
+import { TestResolver, AuthResolver } from "./resolvers";
 import { initConnection } from "./database/index";
+import { getSpotifyUserProfile } from "./spotify/index"
+import { Context } from "./context";
 require("dotenv").config();
 
 const main = async () => {
@@ -16,9 +18,13 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [TestResolver],
+      resolvers: [TestResolver, AuthResolver],
       validate: false,
     }),
+    context: async ({req}) => {
+      const ctx: Context = {user: await getSpotifyUserProfile(req.headers.authorization as string)}
+      return ctx
+    }
   });
 
   apolloServer.applyMiddleware({ app });
