@@ -3,6 +3,7 @@ Backend for Frontend Music Searcher found at henril.com
 
 # Prerequisite
   -node
+
   -postgresql server
 
 # Development 
@@ -20,7 +21,7 @@ yarn watch
 ```
 2nd: terminal:
 ```
-yarn 
+yarn dev
 ```
 
 
