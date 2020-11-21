@@ -1,6 +1,6 @@
-import { SpotifyUser } from "./spotify/types";
-
+import { Request, Response } from "express";
 
 export interface Context {
-  user: SpotifyUser;
+  req: Request;
+  res: Response;
 }
