@@ -1,4 +1,4 @@
-import {ObjectType, Field} from "type-graphql"
+import { ObjectType, Field } from "type-graphql";
 
 @ObjectType()
 export class AuthResponse {
@@ -6,17 +6,6 @@ export class AuthResponse {
   token: string;
 
   @Field()
-  refreshToken: string;
-
-  @Field()
   expires: number;
 }
 
-@ObjectType()
-export class RefreshTokenResponse {
-  @Field()
-  token: string;
-
-  @Field()
-  expires: number;
-}
