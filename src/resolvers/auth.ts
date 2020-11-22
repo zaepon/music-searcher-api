@@ -1,18 +1,18 @@
-import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
+import { Resolver, Mutation, Arg, Ctx, Query } from "type-graphql";
 import { AuthResponse } from "./types/auth";
 import { ApolloError } from "apollo-server-express";
 import { Context } from "src/context";
-import { spotifyRequest } from "../spotify";
+import { spotifyTokenRequest } from "../spotify";
+
 
 @Resolver()
 export class AuthResolver {
   @Mutation(() => AuthResponse)
   async getAccessToken(@Ctx() ctx: Context, @Arg("code") code: string) {
-    const req = await spotifyRequest("POST", "authorization_code", {
+    const req = await spotifyTokenRequest("POST", "authorization_code", {
       code,
     });
     if (!req.data) throw new ApolloError("something went wrong", "AUTH_FAIL");
-    //refreshToken: req.data.refresh_token,
     const response: AuthResponse = {
       token: `${req.data.token_type} ${req.data.access_token}`,
       expires: req.data.expires_in,
