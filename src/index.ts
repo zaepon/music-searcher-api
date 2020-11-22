@@ -2,10 +2,10 @@ import "reflect-metadata";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { TestResolver, AuthResolver } from "./resolvers";
-import { initConnection } from "./database/index";
 import cors from "cors";
-import { spotifyRequest } from "./spotify";
+import { AuthResolver, ArtistResolver } from "./resolvers";
+import { initConnection } from "./database/index";
+import { spotifyTokenRequest } from "./spotify";
 require("dotenv").config();
 
 const main = async () => {
@@ -26,7 +26,7 @@ const main = async () => {
   app.post("/refresh_token", async (req, res) => {
     const token = req.headers.cookie?.split("gid=")[1];
     if (!token || token !== "undefined") {
-      const request = await spotifyRequest("POST", "refresh_token", {
+      const request = await spotifyTokenRequest("POST", "refresh_token", {
         refresh_token: token,
       });
       return res.send({ accessToken: request.data.access_token });
@@ -41,10 +41,14 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [TestResolver, AuthResolver],
+      resolvers: [AuthResolver, ArtistResolver],
       validate: false,
     }),
-    context: async ({ req, res }) => ({ req, res }),
+    context: async ({ req, res }) => ({
+      req,
+      res,
+      token: req.headers.authorization,
+    }),
   });
 
   apolloServer.applyMiddleware({ app, cors: false });
