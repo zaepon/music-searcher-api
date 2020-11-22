@@ -6,6 +6,8 @@ Backend for Frontend Music Searcher found at henril.com
 
   -postgresql server
 
+  -redis
+
 # Development 
 
 install
