@@ -1,2 +1,2 @@
-export { TestResolver } from "./test";
 export { AuthResolver } from "./auth";
+export { ArtistResolver } from "./artist"
