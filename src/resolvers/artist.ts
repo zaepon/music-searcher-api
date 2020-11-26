@@ -1,8 +1,6 @@
 import { Context } from "src/context";
-import { searchArtistByName } from "../spotify";
 import { Arg, Ctx, Query, Resolver } from "type-graphql";
-import { ArtistSearchFilter, ArtistsResponse } from "./types/artist";
-
+import { Artist, ArtistSearchFilter, ArtistsResponse } from "./types/artist";
 @Resolver()
 export class ArtistResolver {
   @Query(() => ArtistsResponse)
@@ -10,11 +8,24 @@ export class ArtistResolver {
     @Ctx() ctx: Context,
     @Arg("filter") filter: ArtistSearchFilter
   ) {
-    return await searchArtistByName(
+    const artistApi = ctx.artistAPI;
+    return await artistApi.searchArtistByName(
       filter.name,
-      ctx.token,
       filter.limit,
       filter.start
     );
+  }
+
+  @Query(() => [Artist])
+  async similarArtists(
+    @Ctx() { artistAPI }: Context,
+    @Arg("artistId") artistId: string
+  ) {
+    return await artistAPI.searchSimilarArtistsById(artistId);
+  }
+
+  @Query(() => Artist)
+  async artistById(@Ctx() { artistAPI }: Context, @Arg("id") id: string) {
+    return await artistAPI.searchArtistById(id);
   }
 }

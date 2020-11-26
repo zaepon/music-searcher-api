@@ -5,7 +5,7 @@ import { buildSchema } from "type-graphql";
 import cors from "cors";
 import { AuthResolver, ArtistResolver } from "./resolvers";
 import { initConnection } from "./database/index";
-import { spotifyTokenRequest } from "./spotify";
+import { spotifyTokenRequest, createArtistAPI } from "./spotify";
 require("dotenv").config();
 
 const main = async () => {
@@ -48,6 +48,7 @@ const main = async () => {
       req,
       res,
       token: req.headers.authorization,
+      artistAPI: createArtistAPI(req.headers.authorization as string)
     }),
   });
 
