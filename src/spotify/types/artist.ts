@@ -28,5 +28,7 @@ export interface SpotifyArtistResponse extends SpotifyGetResponse {
   items: SpotifyArtist[]
 }
 
-
+export interface SpotifySimilarArtistResponse {
+  artists: SpotifyArtist[]
+}
 
