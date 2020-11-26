@@ -1,2 +1,2 @@
 export { AuthResolver } from "./auth";
-export { ArtistResolver } from "./artist"
+export { ArtistResolver } from "./artist";

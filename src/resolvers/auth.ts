@@ -1,9 +1,8 @@
-import { Resolver, Mutation, Arg, Ctx, Query } from "type-graphql";
+import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
 import { AuthResponse } from "./types/auth";
 import { ApolloError } from "apollo-server-express";
 import { Context } from "src/context";
 import { spotifyTokenRequest } from "../spotify";
-
 
 @Resolver()
 export class AuthResolver {

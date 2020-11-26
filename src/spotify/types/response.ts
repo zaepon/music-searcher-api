@@ -1,6 +1,6 @@
 export interface SpotifyGetResponse {
   limit: number;
-  next: string
+  next: string;
   offset: number;
   previous: string | null;
   total: number;
