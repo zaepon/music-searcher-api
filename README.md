@@ -27,39 +27,5 @@ yarn dev
 ```
 
 
-# Project Structure
-```
-
-|-- .
-    |-- .gitignore
-    |-- README.md
-    |-- package.json
-    |-- tsconfig.json
-    |-- yarn.lock
-    |-- dist
-    |   |-- index.js
-    |   |-- index.js.map
-    |   |-- database
-    |   |   |-- index.js
-    |   |   |-- index.js.map
-    |   |-- resolvers
-    |       |-- index.js
-    |       |-- index.js.map
-    |       |-- test.js
-    |       |-- test.js.map
-    |-- src
-        |-- index.ts
-        |-- database
-        |   |-- index.ts
-        |   |-- entities
-        |       |-- .gitkeep
-        |-- resolvers
-            |-- index.ts
-            |-- test.ts
-            |-- types
-                |-- .gitkeep
-  ```
-
-
 
 
