@@ -62,10 +62,6 @@ const main = async () => {
   });
 
   apolloServer.applyMiddleware({ app, cors: false });
-
-  app.get("/", (_, res) => {
-    res.send("Server is online");
-  });
 };
 
 main();
