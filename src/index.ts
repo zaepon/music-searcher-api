@@ -5,7 +5,11 @@ import { buildSchema } from "type-graphql";
 import cors from "cors";
 import { AuthResolver, ArtistResolver } from "./resolvers";
 import { initConnection } from "./database/index";
-import { spotifyTokenRequest, createArtistAPI } from "./spotify";
+import {
+  spotifyTokenRequest,
+  createArtistAPI,
+  clientCredentialToken,
+} from "./spotify";
 require("dotenv").config();
 
 const main = async () => {
@@ -44,12 +48,17 @@ const main = async () => {
       resolvers: [AuthResolver, ArtistResolver],
       validate: false,
     }),
-    context: async ({ req, res }) => ({
-      req,
-      res,
-      token: req.headers.authorization,
-      artistAPI: createArtistAPI(req.headers.authorization as string)
-    }),
+    context: async ({ req, res }) => {
+      const token = req.headers.authorization
+        ? req.headers.authorization
+        : await clientCredentialToken();
+      return {
+        req,
+        res,
+        token,
+        artistAPI: createArtistAPI(token as string),
+      };
+    },
   });
 
   apolloServer.applyMiddleware({ app, cors: false });
