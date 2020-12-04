@@ -29,11 +29,15 @@ const main = async () => {
 
   app.post("/refresh_token", async (req, res) => {
     const token = req.headers.cookie?.split("gid=")[1];
-    if (!token || token !== "undefined") {
+    if (!(typeof token === "undefined")) {
       const request = await spotifyTokenRequest("POST", "refresh_token", {
         refresh_token: token,
       });
-      return res.send({ accessToken: request.data.access_token });
+      if (request.data) {
+        return res.send({ accessToken: request.data.access_token });
+      } else {
+        return res.send({ accessToken: "" });
+      }
     } else {
       return res.send({ accessToken: "" });
     }
