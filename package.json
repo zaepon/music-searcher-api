@@ -34,6 +34,7 @@
     "watch": "tsc -w",
     "dev": "nodemon src/index.ts",
     "start": "node src/index.ts",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "build": "tsc"
   }
 }

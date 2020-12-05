@@ -4,7 +4,7 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import cors from "cors";
 import { AuthResolver, ArtistResolver } from "./resolvers";
-import { initConnection } from "./database/index";
+// import { initConnection } from "./database/index";
 import {
   spotifyTokenRequest,
   createArtistAPI,
@@ -13,7 +13,7 @@ import {
 require("dotenv").config();
 
 const main = async () => {
-  await initConnection();
+  // await initConnection();
 
   const app = express();
   app.use(
