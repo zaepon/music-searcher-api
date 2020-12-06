@@ -6,7 +6,7 @@ jobs:
         only:
           - main
     docker:
-      - image: node:11.10.1
+      - image: docker:latest
 
     working_directory: ~/repo
 
