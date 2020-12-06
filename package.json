@@ -1,6 +1,6 @@
 {
   "name": "music-searcher-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "repository": "https://github.com/sakuru9/music-searcher-api.git",
   "author": "saakuru <miokillian@gmail.com>",
