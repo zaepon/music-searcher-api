@@ -6,7 +6,7 @@ jobs:
         only:
           - main
     docker:
-      - image: cimg/openjdk:14.0
+      - image: node:11.10.1
         auth:
           username: $DOCKERHUB_USER
           password: $DOCKERHUB_PASSWORD
@@ -15,6 +15,15 @@ jobs:
 
     steps:
       - checkout
+
+      - setup_remote_docker:
+        version: 19.03.13
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
       - run: yarn install
 
