@@ -12,7 +12,7 @@ export const spotifyTokenRequest = async (
     method: type,
     url: "https://accounts.spotify.com/api/token",
     headers: {
-      Authorization: `basic ${process.env.SPOTIFY_BASIC_AUTH}`,
+      Authorization: `Basic ${process.env.SPOTIFY_BASIC_AUTH}`,
       "Content-Type": "application/x-www-form-urlencoded",
     },
     data: qs.stringify({
