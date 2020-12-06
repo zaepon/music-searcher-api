@@ -22,15 +22,8 @@ jobs:
 
       - run: yarn build
 
-      - run:
-          name: Get project version
-          command: |
-            if [ $CIRCLE_BRANCH = 'master' ]; then
-              echo export TAG=$(eval node -p "require\(\'./package.json\'\).version") >> $BASH_ENV
-            else
-              echo export TAG=$(eval node -p "require\(\'./package.json\'\).version")_$CIRCLE_BUILD_NUM >> $BASH_ENV
-            fi
-
+      - run: export VERSION=$(node -p "require('./package.json').version")
+      - run: echo $VERSION
       - run: docker build --build-arg SPOTIFY_BASIC_AUTH=$SPOTIFY_BASIC_AUTH --build-arg LOGIN_REDIRECT_URI=$LOGIN_REDIRECT --build-arg WEB_ORIGIN=$WEB_ORIGIN --build-arg CLIENT_ID_SECRET=$CLIENT_ID_SECRET  . -t sakuru9/music-searcher-api:latest -t sakuru9/music-searcher-api:$VERSION
 
       - run: docker push sakuru9/music-searcher-api:$VERSION
