@@ -6,7 +6,7 @@ jobs:
         only:
           - main
     docker:
-      - image: circleci/golang:1.151
+      - image: cimg/openjdk:14.0
         auth:
           username: $DOCKERHUB_USER
           password: $DOCKERHUB_PASSWORD
