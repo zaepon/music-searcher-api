@@ -7,6 +7,9 @@ jobs:
           - main
     docker:
       - image: circleci/node:latest
+      - auth:
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PASSWORD
 
     working_directory: ~/repo
 
@@ -15,6 +18,8 @@ jobs:
           version: 19.03.13
 
       - checkout
+
+      - run: echo $DOCKERHUB_USER $DOCKERHUB_PASSWORD $CLIENT_ID_SECRET
 
       - run: yarn install
 
