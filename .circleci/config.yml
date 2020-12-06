@@ -22,9 +22,7 @@ jobs:
 
       - run: yarn build
 
-      - run: export VERSION=$(node -p "require('./package.json').version")
-      - run: echo $VERSION
-      - run: docker build --build-arg SPOTIFY_BASIC_AUTH=$SPOTIFY_BASIC_AUTH --build-arg LOGIN_REDIRECT_URI=$LOGIN_REDIRECT --build-arg WEB_ORIGIN=$WEB_ORIGIN --build-arg CLIENT_ID_SECRET=$CLIENT_ID_SECRET  . -t sakuru9/music-searcher-api:latest -t sakuru9/music-searcher-api:$VERSION
+      - run: export VERSION=$(node -p "require('./package.json').version") && docker build --build-arg SPOTIFY_BASIC_AUTH=$SPOTIFY_BASIC_AUTH --build-arg LOGIN_REDIRECT_URI=$LOGIN_REDIRECT --build-arg WEB_ORIGIN=$WEB_ORIGIN --build-arg CLIENT_ID_SECRET=$CLIENT_ID_SECRET  . -t sakuru9/music-searcher-api:latest -t sakuru9/music-searcher-api:$VERSION
 
       - run: docker push sakuru9/music-searcher-api:$VERSION
       - run: docker push sakuru9/music-searcher-api:latest
