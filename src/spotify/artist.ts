@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Album, AlbumResponse } from "src/resolvers/types/album";
-import { Artist, ArtistsResponse } from "src/resolvers/types/artist";
+import { Artist } from "src/resolvers/types/artist";
 import { getData } from "../utils/index";
 import { SpotifyUser } from "./types";
 import {
@@ -76,27 +76,21 @@ export const createArtistAPI = (token: string) => {
     },
 
     searchArtistByName: async (name: string, limit = 20, offset = 0) => {
-      const searchRes = await getData(
+      const searchRes: { artists: SpotifyArtistResponse } = await getData(
         `https://api.spotify.com/v1/search?q=${name}&type=artist&offset=${offset}&limit=${limit}`,
         token,
         900
       );
-      const artistsData: { artists: SpotifyArtistResponse } = searchRes;
+      const artist = searchRes.artists.items.map((a) => parseArtist(a));
 
-      const parsedArtists = artistsData.artists.items.map((a) =>
-        parseArtist(a)
-      );
-
-      const res: ArtistsResponse = {
+      return {
         pages: {
-          start: artistsData.artists.offset,
-          limit: artistsData.artists.limit,
-          total: artistsData.artists.total,
+          start: searchRes.artists.offset,
+          limit: searchRes.artists.limit,
+          total: searchRes.artists.total,
         },
-        artists: parsedArtists,
+        artists: artist,
       };
-
-      return res;
     },
     searchArtistById: async (id: string) => {
       const artist: SpotifyArtist = await getData(
