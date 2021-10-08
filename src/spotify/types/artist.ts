@@ -37,7 +37,7 @@ export interface SpotifyAlbum {
       name: string;
       type: string;
       uri: string;
-    }
+    },
   ];
   available_markets: string[];
   external_urls: {
@@ -64,4 +64,37 @@ export interface SpotifySimilarArtistResponse {
 
 export interface SpotifyArtistAlbumResponse extends SpotifyGetResponse {
   items: SpotifyAlbum[];
+}
+
+export interface SpotifyRecentlyListenedItem {
+  track: Track;
+  played_at: string;
+  context: Context;
+}
+
+interface Context {
+  uri: string;
+  external_urls: Externalurls;
+  href: string;
+  type: string;
+}
+
+export interface Track {
+  artists: SpotifyArtist[];
+  available_markets: string[];
+  disc_number: number;
+  duration_ms: number;
+  explicit: boolean;
+  external_urls: Externalurls;
+  href: string;
+  id: string;
+  name: string;
+  preview_url: string;
+  track_number: number;
+  type: string;
+  uri: string;
+}
+
+interface Externalurls {
+  spotify: string;
 }

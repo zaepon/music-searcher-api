@@ -5,22 +5,30 @@ import { Artist, ArtistSearchFilter, ArtistsResponse } from "./types/artist";
 @Resolver()
 export class ArtistResolver {
   @Query(() => ArtistsResponse)
+  async artistRecommendations(@Ctx() ctx: Context) {
+    const artistApi = ctx.artistAPI;
+    const recommendations = await artistApi.getRecommendations();
+
+    return recommendations;
+  }
+
+  @Query(() => ArtistsResponse)
   async artistListByName(
     @Ctx() ctx: Context,
-    @Arg("filter") filter: ArtistSearchFilter
+    @Arg("filter") filter: ArtistSearchFilter,
   ) {
     const artistApi = ctx.artistAPI;
     return await artistApi.searchArtistByName(
       filter.name,
       filter.limit,
-      filter.start
+      filter.start,
     );
   }
 
   @Query(() => [Artist])
   async similarArtists(
     @Ctx() { artistAPI }: Context,
-    @Arg("artistId") artistId: string
+    @Arg("artistId") artistId: string,
   ) {
     return await artistAPI.searchSimilarArtistsById(artistId);
   }
@@ -34,7 +42,7 @@ export class ArtistResolver {
   async artistAlbums(
     @Ctx() { artistAPI }: Context,
     @Arg("artistId") artistId: string,
-    @Arg("offset", { nullable: true }) offset?: number
+    @Arg("offset", { nullable: true }) offset?: number,
   ) {
     return await artistAPI.artistAlbums(artistId, offset);
   }

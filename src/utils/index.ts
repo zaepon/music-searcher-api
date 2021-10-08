@@ -4,7 +4,7 @@ import { redisClient } from "../cache";
 export const getData = async (
   url: string,
   token: string,
-  cacheTTL?: number
+  cacheTTL?: number,
 ) => {
   try {
     const cached = await redisClient.get(url);
@@ -17,7 +17,12 @@ export const getData = async (
     const searchRes = await axios.get(url, config);
     console.timeEnd(`GET ${url}`);
 
-    await redisClient.set(url, JSON.stringify(searchRes.data), "EX", cacheTTL);
+    await redisClient.set(
+      url,
+      JSON.stringify(searchRes.data),
+      "EX",
+      cacheTTL || 1,
+    );
     return searchRes.data;
   } catch (e) {
     console.log("error fetching", e);
