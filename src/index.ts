@@ -10,6 +10,7 @@ import {
   createArtistAPI,
   clientCredentialToken,
 } from "./spotify";
+import { createUserApi } from "./spotify/user";
 require("dotenv").config();
 
 const main = async () => {
@@ -20,7 +21,7 @@ const main = async () => {
     cors({
       origin: process.env.WEB_ORIGIN,
       credentials: true,
-    })
+    }),
   );
 
   app.get("/", (_req, res) => {
@@ -61,6 +62,7 @@ const main = async () => {
         res,
         token,
         artistAPI: createArtistAPI(token as string),
+        userAPI: createUserApi(token as string),
       };
     },
   });
