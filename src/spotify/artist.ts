@@ -82,7 +82,10 @@ export const createArtistAPI = (token: string) => {
       );
 
       const recommendedArtists = artistsByIds.artists
-        .filter((artist, i, arr) => arr.indexOf(artist) === i)
+        .filter(
+          (artist, i, arr) =>
+            arr.findIndex((itm) => itm.id === artist.id) === i,
+        )
         .map((spotifyArtist) => parseArtist(spotifyArtist));
 
       return {

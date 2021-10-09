@@ -57,6 +57,7 @@ const main = async () => {
       const token = req.headers.authorization
         ? req.headers.authorization
         : await clientCredentialToken();
+
       return {
         req,
         res,

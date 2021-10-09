@@ -6,7 +6,7 @@ import { getBasicToken, setBasicToken } from "../utils/token";
 export const spotifyTokenRequest = async (
   type: "GET" | "POST",
   grant_type: string,
-  params: any
+  params: any,
 ) => {
   const options = {
     method: type,
@@ -42,7 +42,7 @@ export const clientCredentialToken = async () => {
       grant_type: "client_credentials",
     },
   });
-  const newToken = `Bearer ${r.data.access_token}`;
+  const newToken = `${r.data.access_token}`;
   await setBasicToken(newToken);
   return newToken;
 };
