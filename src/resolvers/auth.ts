@@ -24,4 +24,11 @@ export class AuthResolver {
     });
     return response;
   }
+
+  @Mutation(() => Boolean)
+  async logout(@Ctx() ctx: Context) {
+    ctx.res.clearCookie("gid");
+
+    return true;
+  }
 }
