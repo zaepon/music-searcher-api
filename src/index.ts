@@ -3,7 +3,7 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import cors from "cors";
-import { AuthResolver, ArtistResolver } from "./resolvers";
+import { AuthResolver, ArtistResolver, UserResolver } from "./resolvers";
 // import { initConnection } from "./database/index";
 import {
   spotifyTokenRequest,
@@ -50,7 +50,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [AuthResolver, ArtistResolver],
+      resolvers: [AuthResolver, ArtistResolver, UserResolver],
       validate: false,
     }),
     context: async ({ req, res }) => {
