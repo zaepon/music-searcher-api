@@ -18,6 +18,8 @@ export class AuthResolver {
     };
     ctx.res.cookie("gid", req.data.refresh_token, {
       httpOnly: true,
+      sameSite: "strict",
+      secure: true,
       path: "/",
     });
     return response;
