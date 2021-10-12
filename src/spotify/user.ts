@@ -1,17 +1,28 @@
 import axios from "axios";
+import { User } from "src/resolvers/types/user";
 import { getData } from "../utils";
 import { SpotifyUser } from "./types";
 import { SpotifyRecentlyListenedItem } from "./types/artist";
 
 export const createUserApi = (token: string) => {
+  const parseUser = (spotifyUser: SpotifyUser): User => {
+    return {
+      id: spotifyUser.id,
+      name: spotifyUser.display_name,
+      imageUrl: spotifyUser.images.length
+        ? spotifyUser.images[0].url
+        : undefined,
+    };
+  };
+
   return {
-    getSpotifyUserProfile: async (): Promise<SpotifyUser> => {
+    getSpotifyUserProfile: async (): Promise<User> => {
       const req = await axios({
         method: "GET",
         url: "https://api.spotify.com/v1/me",
         headers: { Authorization: token },
       });
-      return req.data;
+      return parseUser(req.data);
     },
 
     getCurrentUserRecentlyPlayedTracks: async (): Promise<string[]> => {
