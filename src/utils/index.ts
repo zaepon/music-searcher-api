@@ -13,10 +13,8 @@ export const getData = async (
     const config = {
       headers: { Authorization: token },
     };
-    console.time(`GET ${url}`);
-    const searchRes = await axios.get(url, config);
-    console.timeEnd(`GET ${url}`);
 
+    const searchRes = await axios.get(url, config);
     await redisClient.set(
       url,
       JSON.stringify(searchRes.data),

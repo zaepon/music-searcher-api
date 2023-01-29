@@ -87,9 +87,11 @@ const main = async () => {
       },
     ],
     context: async ({ req, res }) => {
-      const token = req.headers.authorization
+      let token = req.headers.authorization
         ? req.headers.authorization
         : await clientCredentialToken();
+
+      if (!token.includes("Bearer")) token = `Bearer ${token}`;
 
       return {
         req,
